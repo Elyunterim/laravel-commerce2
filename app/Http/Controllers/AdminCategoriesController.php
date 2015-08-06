@@ -11,12 +11,11 @@ use LaravelCommerce\Http\Controllers\Controller;
 class AdminCategoriesController extends Controller
 {
 
-    private $categories;
+    private $categoryModel;
 
-    public function __construct(Category $category)
+    public function __construct(Category $categoryModel )
     {
-        $this->middleware('guest');
-        $this->categories = $category;
+        $this->categoryModel = $categoryModel;
     }
 
     /**
@@ -26,9 +25,8 @@ class AdminCategoriesController extends Controller
      */
     public function index()
     {
-
-
-        return view ('categories.index');
+        $categories = $this->categoryModel->all();
+        return view ('categories.index', compact('categories'));
     }
 
     /**
@@ -38,7 +36,7 @@ class AdminCategoriesController extends Controller
      */
     public function create()
     {
-        //
+        return view ('categories.create');
     }
 
     /**
@@ -47,9 +45,15 @@ class AdminCategoriesController extends Controller
      * @param  Request  $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(Requests\CategoryRequest $request)
     {
-        //
+        $input = $request->all();
+
+        $category = $this->categoryModel->fill($input);
+
+        $category->save();
+
+        return redirect('admin/categories');
     }
 
     /**
@@ -71,7 +75,9 @@ class AdminCategoriesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $category = $this->categoryModel->find($id);
+
+        return view('categories.edit', compact('category'));
     }
 
     /**
@@ -81,9 +87,11 @@ class AdminCategoriesController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(Requests\CategoryRequest $request, $id)
     {
-        //
+        $this->categoryModel->find($id)->update($request->all());
+
+        return redirect('admin/categories');
     }
 
     /**
@@ -94,6 +102,8 @@ class AdminCategoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->categoryModel->find($id)->delete();
+
+        return redirect('admin/categories');
     }
 }
