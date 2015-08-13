@@ -4,6 +4,7 @@ namespace LaravelCommerce\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use LaravelCommerce\Category;
 use LaravelCommerce\Http\Requests;
 use LaravelCommerce\Http\Controllers\Controller;
 use LaravelCommerce\Product;
@@ -25,7 +26,7 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        $products = $this->productModel->all();
+        $products = $this->productModel->paginate(10);
         return view ('products.index', compact('products'));
     }
 
@@ -34,9 +35,11 @@ class AdminProductsController extends Controller
      *
      * @return Response
      */
-    public function create()
+    public function create(Category $category)
     {
-        return view ('products.create');
+        $categories = $category->lists('name','id');
+
+        return view ('products.create', compact('categories'));
     }
 
     /**
@@ -73,11 +76,13 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, Category $category)
     {
+        $categories = $category->lists('name','id');
+
         $product = $this->productModel->find($id);
 
-        return view('products.edit', compact('product'));
+        return view('products.edit', compact('product','categories'));
     }
 
     /**
