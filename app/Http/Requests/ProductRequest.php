@@ -26,7 +26,10 @@ class ProductRequest extends Request
         return [
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'price' => array('required', 'regex:/^\d*(\.\d{2})?$/'),
+            'featured' => 'required',
+            'recommend' => 'required',
+            'tags' => 'required'
         ];
     }
 }

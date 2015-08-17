@@ -25,5 +25,20 @@ class Product extends Model
         return $this->hasMany('LaravelCommerce\ProductImage');
     }
 
+    public function tags()
+    {
+        return $this->belongsToMany('LaravelCommerce\Tag');
+    }
 
+    public function getNameDescritptionAttribute()
+    {
+        return $this->name . ' - ' . $this->description;
+    }
+
+    public function getTagListAttribute()
+    {
+        $tags = $this->tags->lists('name')->toArray();
+
+        return implode(',', $tags);
+    }
 }

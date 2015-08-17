@@ -58,6 +58,11 @@
             </div>
 
             <div class="form-group">
+                {!! Form::label('tags', 'Tags (separate with commas)') !!}
+                {!! Form::textarea('tags', $product->tagList, ['class' => 'form-control', 'rows' => 2, 'placeholder' => 'Example: tag1, tag2, tag3...']) !!}
+            </div>
+
+            <div class="form-group">
                 {!! Form::submit('Save Product',['class'=>'btn btn-primary']) !!}
             </div>
 

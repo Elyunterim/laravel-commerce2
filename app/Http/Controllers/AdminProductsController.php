@@ -10,12 +10,15 @@ use LaravelCommerce\Http\Requests;
 use LaravelCommerce\Http\Controllers\Controller;
 use LaravelCommerce\Product;
 use LaravelCommerce\ProductImage;
+use LaravelCommerce\Tag;
 
 
 class AdminProductsController extends Controller
 {
 
     private $productModel;
+    private $categoryModel;
+    private $tagModel;
 
     public function __construct(Product $productModel)
     {
@@ -29,7 +32,8 @@ class AdminProductsController extends Controller
      */
     public function index()
     {
-        $products = $this->productModel->paginate(10);
+        $products = $this->productModel->orderBy('id','DESC')->paginate(10);
+
         return view ('products.index', compact('products'));
     }
 
@@ -54,13 +58,17 @@ class AdminProductsController extends Controller
     public function store(Requests\ProductRequest $request)
     {
         $input = $request->all();
+        $tags = $request->only('tags');
+
+        $tagsId = $this->storeTags($tags);
 
         $product = $this->productModel->fill($input);
-
         $product->save();
+        $product->tags()->attach($tagsId);
 
-        return redirect('admin/products');
+        return redirect()->route('products');
     }
+
 
     /**
      * Display the specified resource.
@@ -81,12 +89,12 @@ class AdminProductsController extends Controller
      */
     public function edit($id, Category $category)
     {
-        $categories = $category->lists('name','id');
-
         $product = $this->productModel->find($id);
+        $categories = $category->lists('name','id');
 
         return view('products.edit', compact('product','categories'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -95,11 +103,36 @@ class AdminProductsController extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function update(Requests\ProductRequest $request, $id)
+    public function update(Request $request, $id)
     {
+
+        $tags = $request->only('tags');
+        $tagsId = $this->storeTags($tags);
+
+        $this->productModel->find($id)->tags()->sync($tagsId);
         $this->productModel->find($id)->update($request->all());
 
-        return redirect('admin/products');
+        return redirect()->route('products');
+
+    }
+
+    private function storeTags($inputTags)
+    {
+        $tags = explode(',', $inputTags['tags']);
+        $tagsId = [];
+
+        foreach ($tags as $tag) {
+            $tagObj = Tag::whereName(trim($tag))->first();
+
+            if (!empty($tagObj)) {
+                $tagsId[] = $tagObj->id;
+            } else {
+                    $tagObj = Tag::create(['name' => trim($tag)]);
+                    $tagsId[] = $tagObj->id;
+                }
+        }
+
+        return $tagsId;
     }
 
     /**
@@ -110,6 +143,10 @@ class AdminProductsController extends Controller
      */
     public function destroy($id)
     {
+        $product = $this->productModel->find($id);
+
+        $product->tags()->sync([]);
+
         $this->productModel->find($id)->delete();
 
         return redirect('admin/products');
@@ -139,10 +176,12 @@ class AdminProductsController extends Controller
         return view('products.create_image', compact('product'));
     }
 
-    public function storeImage(Request $request,  $id, ProductImage $productImage)
+    public function storeImage(Requests\ProductImageRequest $request,  $id, ProductImage $productImage)
     {
+        // Get file upload
         $file = $request->file('image');
 
+        // Get extension of file
         $extension = $file->getClientOriginalExtension();
 
         $image = $productImage::create(['product_id'=>$id, 'extension'=>$extension]);
@@ -153,7 +192,7 @@ class AdminProductsController extends Controller
 
     }
 
-    public function destroyImage(Request $request, $id, ProductImage $productImage)
+    public function destroyImage($id, ProductImage $productImage)
     {
         $image = $productImage->find($id);
 

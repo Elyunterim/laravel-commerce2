@@ -19,7 +19,7 @@
 
             <h1>Create Products</h1>
 
-            {!! Form::open(['url'=>'admin/products']) !!}
+            {!! Form::open(['route'=>'products.store']) !!}
 
             <!-- Name input form -->
             <div class="form-group">
@@ -55,6 +55,11 @@
                 {!! Form::label('recommend', 'Recommend:&nbsp;') !!}
                 {!! Form::radio('recommend', 1, false, ['class' => 'field']) !!} Yes
                 {!! Form::radio('recommend', 0, false, ['class' => 'field']) !!} No
+            </div>
+
+            <div class="form-group">
+                {!! Form::label('tags', 'Tags (separate with commas)') !!}
+                {!! Form::textarea('tags', null, ['class' => 'form-control', 'rows' => 2, 'placeholder' => 'Example: tag1, tag2, tag3...']) !!}
             </div>
 
             <div class="form-group">
