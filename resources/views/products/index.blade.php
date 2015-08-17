@@ -21,6 +21,7 @@
                 <th>Category</th>
                 <th>Action</th>
                 <th></th>
+                <th></th>
             </tr>
 
             @foreach ($products as $product)
@@ -31,6 +32,7 @@
                     <td>{{ $product->price }}</td>
                     <td>{{ $product->category->name }}</td>
                     <td><a href="{{ route('products.edit', ['id' => $product->id ]) }}"> Edit </a></td>
+                    <td><a href="{{ route('products.images', ['id' => $product->id ]) }}"> Images </a></td>
                     <td><a href="{{ route('products.destroy', ['id' => $product->id ]) }}"> Remove </a></td>
                 </tr>
             @endforeach

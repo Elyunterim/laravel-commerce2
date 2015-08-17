@@ -17,21 +17,40 @@ Route::get('exemplo', 'WelcomeController@exemplo');
 Route::group(['prefix'=>'admin'], function()
 
     {
-        Route::get('categories', array('as' => 'categories', 'uses' => 'AdminCategoriesController@index'));
-        Route::get('categories/create', array('as' => 'categories.create', 'uses' => 'AdminCategoriesController@create'));
-        Route::post('categories', array('as' => 'categories.post', 'uses' => 'AdminCategoriesController@store'));
-        Route::get('categories/{category}', array('as' => 'categories.show', 'uses' => 'AdminCategoriesController@show'));
-        Route::get('categories/{id}/edit', array('as' => 'categories.edit', 'uses' => 'AdminCategoriesController@edit'));
-        Route::post('categories/{id}/update', array('as' => 'categories.update','uses' => 'AdminCategoriesController@update'));
-        Route::get('categories/{id}/destroy', array('as' => 'categories.destroy', 'uses' => 'AdminCategoriesController@destroy'));
+        Route::group(['prefix'=>'categories'], function(){
 
-        Route::get('products', array('as' => 'products','uses'=> 'AdminProductsController@index'));
-        Route::get('products/create', array('as' => 'products.create','uses' => 'AdminProductsController@create'));
-        Route::post('products', array('as' => 'products.store', 'uses' => 'AdminProductsController@store'));
-        Route::get('products/{product}', array('as' => 'products.show', 'uses' => 'AdminProductsController@show') );
-        Route::get('products/{id}/edit', array('as' => 'products.edit', 'uses' => 'AdminProductsController@edit'));
-        Route::post('products/{id}/update', array('as' => 'products.update', 'uses' => 'AdminProductsController@update'));
-        Route::get('products/{id}/destroy', array('as' => 'products.destroy', 'uses' =>'AdminProductsController@destroy'));
+            Route::get('', array('as' => 'categories', 'uses' => 'AdminCategoriesController@index'));
+            Route::get('create', array('as' => 'categories.create', 'uses' => 'AdminCategoriesController@create'));
+            Route::post('', array('as' => 'categories.post', 'uses' => 'AdminCategoriesController@store'));
+            Route::get('{category}', array('as' => 'categories.show', 'uses' => 'AdminCategoriesController@show'));
+            Route::get('{id}/edit', array('as' => 'categories.edit', 'uses' => 'AdminCategoriesController@edit'));
+            Route::post('{id}/update', array('as' => 'categories.update','uses' => 'AdminCategoriesController@update'));
+            Route::get('{id}/destroy', array('as' => 'categories.destroy', 'uses' => 'AdminCategoriesController@destroy'));
+        });
+
+
+        Route::group(['prefix'=>'products'], function(){
+
+            Route::get('', array('as' => 'products','uses'=> 'AdminProductsController@index'));
+            Route::get('create', array('as' => 'products.create','uses' => 'AdminProductsController@create'));
+            Route::post('', array('as' => 'products.store', 'uses' => 'AdminProductsController@store'));
+            Route::get('{product}', array('as' => 'products.show', 'uses' => 'AdminProductsController@show') );
+            Route::get('{id}/edit', array('as' => 'products.edit', 'uses' => 'AdminProductsController@edit'));
+            Route::post('{id}/update', array('as' => 'products.update', 'uses' => 'AdminProductsController@update'));
+            Route::get('{id}/destroy', array('as' => 'products.destroy', 'uses' =>'AdminProductsController@destroy'));
+
+            Route::group(['prefix'=>'images'], function(){
+
+                Route::get( '{id}/product', ['as'=>'products.images','uses'=>'AdminProductsController@images']);
+                Route::get( 'create/{id}/product', ['as'=>'products.images.create','uses'=>'AdminProductsController@createImage']);
+                Route::post( 'store/{id}/product', ['as'=>'products.images.store','uses'=>'AdminProductsController@storeImage']);
+                Route::get( 'destroy/{id}/image', ['as'=>'products.images.destroy','uses'=>'AdminProductsController@destroyImage']);
+
+            });
+
+    });
+
+
 
     });
 

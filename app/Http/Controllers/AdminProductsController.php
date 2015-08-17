@@ -3,11 +3,14 @@
 namespace LaravelCommerce\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use LaravelCommerce\Category;
 use LaravelCommerce\Http\Requests;
 use LaravelCommerce\Http\Controllers\Controller;
 use LaravelCommerce\Product;
+use LaravelCommerce\ProductImage;
+
 
 class AdminProductsController extends Controller
 {
@@ -119,5 +122,50 @@ class AdminProductsController extends Controller
 
         return view('exemplo',['nome' => $nome, 'sobrenome' => $sobrenome]);
 
+    }
+
+    public function images($id)
+    {
+        $product = $this->productModel->find($id);
+
+        return view('products.images', compact('product'));
+    }
+
+    public function createImage($id)
+    {
+
+        $product = $this->productModel->find($id);
+
+        return view('products.create_image', compact('product'));
+    }
+
+    public function storeImage(Request $request,  $id, ProductImage $productImage)
+    {
+        $file = $request->file('image');
+
+        $extension = $file->getClientOriginalExtension();
+
+        $image = $productImage::create(['product_id'=>$id, 'extension'=>$extension]);
+
+        Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
+
+        return redirect()->route('products.images', ['id'=>$id]);
+
+    }
+
+    public function destroyImage(Request $request, $id, ProductImage $productImage)
+    {
+        $image = $productImage->find($id);
+
+        if(file_exists(public_path() .'/uploads/' .$image->id.'.'.$image->extension))
+            {
+                Storage::disk('public_local')->delete($image->id.'.'.$image->extension);
+            }
+
+        $product = $image->product;
+
+        $image->delete();
+
+        return redirect()->route('products.images', ['id' => $product->id]);
     }
 }
