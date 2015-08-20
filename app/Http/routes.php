@@ -10,9 +10,18 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/', 'WelcomeController@index');
-Route::get('home', 'HomeController@index');
-Route::get('exemplo', 'WelcomeController@exemplo');
+
+    Route::get('/','StoreController@index');
+    Route::get('home', 'HomeController@index');
+    Route::get('exemplo', 'WelcomeController@exemplo');
+
+    Route::get('category/{id}', ['as' => 'store.category', 'uses' => 'StoreController@category']);
+    Route::get('product/{id}', ['as' => 'store.product', 'uses' => 'StoreController@product']);
+
+    Route::controllers([
+    'auth' => 'Auth\AuthController',
+    'password' => 'Auth\PasswordController',
+    ]);
 
 Route::group(['prefix'=>'admin'], function()
 
@@ -50,12 +59,7 @@ Route::group(['prefix'=>'admin'], function()
 
     });
 
+});
 
 
-    });
 
-Route::get
-    ('/', function ()
-        {
-            return view('welcome');
-        });
