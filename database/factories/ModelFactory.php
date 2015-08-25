@@ -19,3 +19,20 @@ $factory->define(LaravelCommerce\User::class, function (Faker\Generator $faker) 
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(LaravelCommerce\Category::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'description' => $faker->sentence,
+    ];
+});
+
+$factory->define(LaravelCommerce\Product::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+        'description' => $faker->sentence,
+        'price' => $faker->numberBetween(),
+        'featured' => $faker->boolean(),
+        'recommend' => $faker->boolean(),
+    ];
+});
