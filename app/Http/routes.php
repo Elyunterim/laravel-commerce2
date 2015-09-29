@@ -17,6 +17,8 @@
 
     Route::get('category/{id}', ['as' => 'store.category', 'uses' => 'StoreController@category']);
     Route::get('product/{id}', ['as' => 'store.product', 'uses' => 'StoreController@product']);
+    Route::get('product/tag/{id}', ['as' => 'store.product.tag', 'uses' => 'StoreController@tag']);
+
 
     Route::controllers([
     'auth' => 'Auth\AuthController',

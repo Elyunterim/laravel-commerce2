@@ -1,4 +1,4 @@
-@extends('store.partial.store')
+@extends('store.store')
 
 @section('categories')
     @include('store.partial.categories')
@@ -6,9 +6,10 @@
 
 @section('content')
     <div class="col-sm-9 padding-right">
-        <div class="features_items">
-            <h2 class="title text-center">Produtos de <b>{{ $products->first()->category->name }}</b></h2>
+        <div class="features_items"><!--features_items-->
+            <h2 class="title text-center">{{$category->name}}</h2>
             @include('store.partial.products', ['products' => $products])
-        </div>
+        </div><!--features_items-->
+
     </div>
 @stop

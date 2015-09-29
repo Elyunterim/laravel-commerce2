@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +7,7 @@
     <meta name="author" content="">
     <title>Home | E-Shop</title>
 
-
     <link href="{{elixir('css/all.css')}}" rel="stylesheet">
-
-
 
 </head><!--/head-->
 
@@ -103,8 +99,6 @@
     </div><!--/header-bottom-->
 </header><!--/header-->
 
-
-
 <section>
     <div class="container">
         <div class="row">
@@ -127,9 +121,6 @@
 
 <footer id="footer"><!--Footer-->
 
-
-
-
     <div class="footer-bottom">
         <div class="container">
             <div class="row">
@@ -140,8 +131,6 @@
     </div>
 
 </footer><!--/Footer-->
-
-
 
 <script src="{{elixir('js/all.js')}}"></script>
 </body>

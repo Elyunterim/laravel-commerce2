@@ -9,6 +9,7 @@ use LaravelCommerce\Http\Requests;
 use LaravelCommerce\Http\Controllers\Controller;
 use LaravelCommerce\Product;
 use Illuminate\Database\Eloquent\Collection;
+use LaravelCommerce\Tag;
 
 class StoreController extends Controller
 {
@@ -21,6 +22,10 @@ class StoreController extends Controller
      * @var Product
      */
     private $product;
+    /**
+     * @var Tag
+     */
+    private $tag;
     /**
      * @var Tag
      */
@@ -46,24 +51,27 @@ class StoreController extends Controller
         $recommend = Product::recommend()->get();
         $categories = Category::all();
 
-        return view('store.partial.index', compact('categories','featured','recommend'));
+        return view('store.index', compact('categories','featured','recommend'));
     }
 
     public function category($id)
     {
-        $categories = $this->category->orderBy('name')->get();
-        $products = $this->product->OfCategory($id)->get();
+        $categories = Category::all();
+        $category = Category::find($id);
+        $products = Product::ofCategory($id)->get();
 
-        return view('store.partial.products-category', compact('categories','products'));
+        return view('store.category', compact('categories','products','category'));
     }
 
 
     public function product($id)
     {
-        $categories = $this->category->orderBy('name')->get();
-        $product = $this->product->find($id);
-        return view('store.partial.product-details', compact('categories', 'product'));
+        $categories = Category::all();
+        $product = Product::find($id);
+
+        return view('store.product', compact('categories', 'product'));
     }
+
     /**
      * Show all products by tag.
      *
@@ -72,9 +80,9 @@ class StoreController extends Controller
      */
     public function tag($id)
     {
-        $categories = $this->category->orderBy('name')->get();
-        $tag = $this->tag->find($id);
-        return view('store.partial.products-tag', compact('categories', 'tag'));
+        $categories = Category::all();
+        $tag =  Tag::find($id);
+        return view('store.tag', compact('categories','tag'));
     }
 
     /**
