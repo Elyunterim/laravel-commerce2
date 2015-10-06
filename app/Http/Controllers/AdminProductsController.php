@@ -119,20 +119,17 @@ class AdminProductsController extends Controller
     private function storeTags($inputTags)
     {
         $tags = explode(',', $inputTags['tags']);
-        $tagsId = [];
+        $tags = array_map(function($item){
 
-        foreach ($tags as $tag) {
-            $tagObj = Tag::whereName(trim($tag))->first();
+            return trim($item);
+        }, $tags);
+        $tags = array_filter($tags);
+        $tagsIDs = array_map(function($tagName){
+            return Tag::firstOrCreate(['name' => $tagName])->id;
+        },$tags);
 
-            if (!empty($tagObj)) {
-                $tagsId[] = $tagObj->id;
-            } else {
-                    $tagObj = Tag::create(['name' => trim($tag)]);
-                    $tagsId[] = $tagObj->id;
-                }
-        }
+        return $tagsIDs;
 
-        return $tagsId;
     }
 
     /**
