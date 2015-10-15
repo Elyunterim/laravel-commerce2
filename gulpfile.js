@@ -15,6 +15,7 @@ elixir(function(mix) {
     mix.styles([
         'animate.css',
         'bootstrap.min.css',
+        'jquery.bootstrap-touchspin.min.css',
         'font-awesome.min.css',
         'prettyPhoto.css',
         'main.css',
@@ -23,6 +24,7 @@ elixir(function(mix) {
 
     mix.scripts([
         'bootstrap.min.js',
+        'jquery.bootstrap-touchspin.min.js',
         'jquery.js',
         'jquery.scrollUp.min.js',
         'price-range.js',

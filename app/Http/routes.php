@@ -11,14 +11,19 @@
 |
 */
 
-    Route::get('/','StoreController@index');
-    Route::get('home', 'HomeController@index');
-    Route::get('exemplo', 'WelcomeController@exemplo');
+
+
+    Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
+    Route::get('/home', ['as' => 'home', 'uses' => 'StoreController@index']);
 
     Route::get('category/{id}', ['as' => 'store.category', 'uses' => 'StoreController@category']);
     Route::get('product/{id}', ['as' => 'store.product', 'uses' => 'StoreController@product']);
     Route::get('product/tag/{id}', ['as' => 'store.product.tag', 'uses' => 'StoreController@tag']);
 
+    Route::get('cart', ['as' => 'cart', 'uses' => 'CartController@index']);
+    Route::get('cart/add/{id}', ['as' => 'cart.add', 'uses' => 'CartController@add']);
+    Route::get('cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
+    Route::post('cart/change', ['as' => 'cart.change', 'uses' => 'CartController@change']);
 
     Route::controllers([
     'auth' => 'Auth\AuthController',
