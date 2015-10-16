@@ -68,21 +68,13 @@ class CartController extends Controller
      * @param Request $request
      * @return array
      */
-    public function change(Request $request)
+    public function update($id, $newQtd)
     {
-        try {
-            $id = $request->input('id');
-            $qtd = $request->input('qtd');
+        $cart = $this->getCart();
+        $cart->update($id, $newQtd);
+        Session::set('cart', $cart);
 
-            $cart = $this->getCart();
-            $cart->updateQtd($id, $qtd);
-
-            return ['status' => 'success'];
-
-        } catch (\Exception $e) {
-
-            return ['status' => 'error', 'message' => $e->getMessage()];
-        }
+        return redirect()->route('cart');
     }
 
     /**

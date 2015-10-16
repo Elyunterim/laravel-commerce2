@@ -18,12 +18,14 @@
                     </thead>
                     <tbody>
                     @forelse($cart->all() as $key => $item)
+
                         <tr>
                             <td class="cart_product">
                                 <a href="{{ route('store.product', ['id' => $key]) }}">
                                 </a>
                             </td>
-                            <td>
+
+                            <td class="cart_description">
                                 <h4><a href="{{ route('store.product', ['id' => $key]) }}">{{ $item['name'] }}</a></h4>
 
                                 <p>Código: {{ $key }}</p>
@@ -31,10 +33,18 @@
                             <td class="cart_total_price text-left">
                                 R$ {{ number_format($item['price'], 2, ',', '.') }}
                             </td>
-                            <td>
-                                <div class="input-group">
-                                    <input data-id="{{ $key }}" name="qtd-{{ $key }}" type="text"
-                                           class="pull-right spin" value="{{ $item['qtd'] }}">
+                            <td class="cart_quantity">
+                                <div class="form-group">
+                                        <div class="input-group" style="width: 110px">
+                                                <a href="{{ route('cart.update', ['id' => $key, 'qtd' => ($item['qtd'] - 1)])}}" class="input-group-addon btn btn-default">-</a>
+                                                {!! Form::text('', $item['qtd'], [
+                                                'class' => 'cart_quantity_input form-control',
+                                                'data-id' => $key,
+                                                'data-uri' => route('cart.update', ['id' => $key]),
+                                                'style' => 'text-align: center'
+                                                ]) !!}
+                                                <a href="{{ route('cart.update', ['id' => $key, 'qtd' => ($item['qtd'] + 1)])}}" class="input-group-addon btn btn-default">+</a>
+                                        </div>
                                 </div>
                             </td>
                             <td>&nbsp;</td>
@@ -67,32 +77,5 @@
             </div>
         </div>
     </section>
-@stop
-@section('script')
-    <script>
-        $('.spin').TouchSpin({
-            min: 1,
-            max: 1000,
-            postfix: '<span class="glyphicon glyphicon-refresh"></span>',
-            postfix_extraclass: "btn btn-default"
-        });
 
-        $(".bootstrap-touchspin-postfix").on('click', function () {
-            var id = $(this).closest('.input-group').find('input[type="text"]').attr('data-id');
-            var qtd = $(this).closest('.input-group').find('input[type="text"]').val();
-
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('cart.change') }}",
-                data: {_token: "{{csrf_token() }}", id: id, qtd: qtd},
-                success: function (data) {
-                    if (data.status == 'success') {
-                        document.location.reload();
-                    } else {
-                        console.log(data);
-                    }
-                }
-            });
-        }).attr('title', 'Atualizar carrinho');
-    </script>
 @stop

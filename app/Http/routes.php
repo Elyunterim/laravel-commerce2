@@ -23,7 +23,7 @@
     Route::get('cart', ['as' => 'cart', 'uses' => 'CartController@index']);
     Route::get('cart/add/{id}', ['as' => 'cart.add', 'uses' => 'CartController@add']);
     Route::get('cart/destroy/{id}', ['as' => 'cart.destroy', 'uses' => 'CartController@destroy']);
-    Route::post('cart/change', ['as' => 'cart.change', 'uses' => 'CartController@change']);
+    Route::get('cart/update/{id}/{qtd}', ['as' => 'cart.update', 'uses' => 'CartController@update'])->where('qtd','[0-9]+');
 
     Route::controllers([
     'auth' => 'Auth\AuthController',

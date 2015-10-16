@@ -78,9 +78,14 @@ class Cart {
      * @param $id
      * @param $qtd
      */
-    public function updateQtd($id, $qtd)
+    public function update($id, $qtd)
     {
-        $this->items[$id]['qtd'] = $qtd;
+        if($qtd > 0){
+            $this->items[$id]['qtd'] = $qtd;
+        }else{
+            $this->remove($id);
+        }
+
     }
 
     /**
