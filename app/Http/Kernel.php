@@ -27,6 +27,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \LaravelCommerce\Http\Middleware\Authenticate::class,
+        'auth.store' => \LaravelCommerce\Http\Middleware\AuthenticateStore::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \LaravelCommerce\Http\Middleware\RedirectIfAuthenticated::class,
     ];

@@ -2,6 +2,8 @@
 
 namespace LaravelCommerce\Http\Controllers\Auth;
 
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Routing\Registrar;
 use LaravelCommerce\User;
 use Validator;
 use LaravelCommerce\Http\Controllers\Controller;
@@ -28,8 +30,11 @@ class AuthController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Guard $auth, Registrar $registrar)
     {
+        $this->auth = $auth;
+        $this->registrar = $registrar;
+
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
@@ -61,5 +66,10 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    public function redirechPath()
+    {
+        return "/";
     }
 }

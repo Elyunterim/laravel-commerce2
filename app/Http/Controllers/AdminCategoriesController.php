@@ -15,6 +15,7 @@ class AdminCategoriesController extends Controller
 
     public function __construct(Category $categoryModel )
     {
+
         $this->categoryModel = $categoryModel;
     }
 

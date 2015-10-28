@@ -68,7 +68,10 @@
                         <td colspan="7">
                             <div class="pull-right">
                                 <span style="margin-right: 60px;">TOTAL: R$ {{ number_format($cart->getTotal(), 2, ',', '.') }}</span>
-                                <a href="#" class="btn btn-success">Finalizar a compra</a>
+
+                                @if(count($cart->all() > 0))
+                                    <a class="btn btn-success" href="{{route('checkout.place')}}">Finalizar a compra</a>
+                                @endif
                             </div>
                         </td>
                     </tr>

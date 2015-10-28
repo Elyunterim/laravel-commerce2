@@ -12,7 +12,8 @@ class UserTableSeeder extends seeder
         factory('LaravelCommerce\User')->create([
             'name' => 'Andre',
             'email' => 'andreluiz1013@hotmail.com',
-            'password' => Hash::make(123),
+            'password' => Hash::make(123456),
+            'is_admin' => 1
         ]);
 
         factory('LaravelCommerce\User', 10)->create();

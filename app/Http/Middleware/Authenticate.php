@@ -42,6 +42,14 @@ class Authenticate
             }
         }
 
+        if($this->auth->user()->is_admin != 1){
+            $this->auth->logout();
+
+            $request->session()->flash('alert_admin','Somente usuários administradores podem acessar a área admim.');
+
+            return redirect()->guest('auth/login');
+        }
+
         return $next($request);
     }
 }

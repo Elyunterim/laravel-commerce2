@@ -21,9 +21,9 @@
                         <ul class="nav nav-pills">
                             <li><a href="{{ route('home') }}"><i class="fa fa-phone"></i> (19) 5555-5555</a></li>
                             <li><a href="{{ route('home') }}"><i class="fa fa-envelope"></i> atendimento@schoolofnet.com</a></li>
-                            @if (Auth::check() && Auth::user()->isAdmin())
-                                <li><a href="{{ route('products') }}"><i class="fa fa-lock"></i> Admin</a></li>
-                            @endif
+                            {{--@if (Auth::check() && Auth::user()->isAdmin())--}}
+                                {{--<li><a href="{{ route('products') }}"><i class="fa fa-lock"></i> Admin</a></li>--}}
+                            {{--@endif--}}
                         </ul>
                     </div>
                 </div>
@@ -52,7 +52,9 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Minha conta</a></li>
+
+                            <li><a href="{{ route('checkout.place') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li><a href="{{route('account.orders')}}"><i class="fa fa-user"></i>Minha conta</a></li>
                             <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
                             @if (Auth::guest())
                                 <li><a href="{{ url('/auth/login') }}"><i class="fa fa-lock"></i> Login</a></li>
@@ -82,9 +84,10 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="/" class="active">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+                            <li class="dropdown"><a href="{{route('home')}}">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
                                     <li><a href="{{ route('home') }}">Products</a></li>
+                                    <li><a href="{{ route('checkout.place') }}">Checkout</a></li>
                                     <li><a href="{{ route('home') }}">Product Details</a></li>
                                     <li><a href="{{ route('cart') }}">Cart</a></li>
                                     @if (Auth::guest())
