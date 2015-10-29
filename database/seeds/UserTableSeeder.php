@@ -7,7 +7,7 @@ class UserTableSeeder extends seeder
 {
     public function run()
     {
-        DB::table('users')->truncate();
+        DB::table('users')->delete();
 
         factory('LaravelCommerce\User')->create([
             'name' => 'Andre',
