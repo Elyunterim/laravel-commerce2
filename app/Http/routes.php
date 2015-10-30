@@ -27,7 +27,7 @@
 
     Route::group(['middleware' => 'auth.store'], function(){
 
-        Route::get('checkout/placeOrder', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
+        Route::get('checkout/place-order', ['as' => 'checkout.place', 'uses' => 'CheckoutController@place']);
         Route::get('account/orders', ['as' => 'account.orders', 'uses' => 'AccountController@orders']);
     });
 
