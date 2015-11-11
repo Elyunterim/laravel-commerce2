@@ -25,6 +25,7 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
+
     /**
      * Create a new authentication controller instance.
      *
@@ -65,6 +66,12 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'street_one' => $data['street_one'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'country' => $data['country'],
+            'postal_code' => $data['postal_code'],
+            'phone' => $data['phone'],
         ]);
     }
 

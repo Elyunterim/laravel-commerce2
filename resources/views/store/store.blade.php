@@ -21,9 +21,6 @@
                         <ul class="nav nav-pills">
                             <li><a href="{{ route('home') }}"><i class="fa fa-phone"></i> (19) 5555-5555</a></li>
                             <li><a href="{{ route('home') }}"><i class="fa fa-envelope"></i> atendimento@schoolofnet.com</a></li>
-                            {{--@if (Auth::check() && Auth::user()->isAdmin())--}}
-                                {{--<li><a href="{{ route('products') }}"><i class="fa fa-lock"></i> Admin</a></li>--}}
-                            {{--@endif--}}
                         </ul>
                     </div>
                 </div>

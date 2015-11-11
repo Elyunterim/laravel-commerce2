@@ -76,6 +76,14 @@ Route::group(['prefix'=>'admin','middleware'=>'auth'], function()
 
     });
 
+    Route::group(['prefix' => 'orders'], function(){
+
+        Route::get('', ['as' => 'admin.orders', 'uses' => 'AdminOrdersController@index']);
+        Route::get('{id}/show', ['as' => 'admin.orders.show', 'uses' => 'AdminOrdersController@show']);
+        Route::get('{id}/{status}/update-status', ['as' => 'admin.orders.update_status', 'uses' => 'AdminOrdersController@updateStatus'])->where('qtd', '[\-0-9]+');
+
+    });
+
 });
 
 

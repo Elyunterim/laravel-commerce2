@@ -35,6 +35,44 @@
 							</div>
 						</div>
 
+
+                        <div class="form-group">
+                            {!! Form::label('street_one', 'Endereço', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::text('street_one', null, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('city', 'Cidade', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                               {!! Form::text('city', null, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('state', 'Estado', ['class' => 'col-md-4 control-label']) !!}
+                             <div class="col-md-6">
+                               {!! Form::text('state', null, ['class' => 'form-control']) !!}
+                            </div>
+                        </div>
+
+                        {!! Form::hidden('country', 'brazil') !!}
+
+                        <div class="form-group">
+                            {!! Form::label('postal_code', 'CEP', ['class' => 'col-md-4 control-label']) !!}
+                              <div class="col-md-6">
+                              {!! Form::text('postal_code', null, ['class' => 'form-control']) !!}
+                              </div>
+                        </div>
+
+                        <div class="form-group">
+                            {!! Form::label('phone', 'Telefone', ['class' => 'col-md-4 control-label']) !!}
+                              <div class="col-md-6">
+                            {!! Form::text('phone', null, ['class' => 'form-control']) !!}
+                        </div>
+                        </div>
+
 						<div class="form-group">
 							<label class="col-md-4 control-label">Senha</label>
 							<div class="col-md-6">

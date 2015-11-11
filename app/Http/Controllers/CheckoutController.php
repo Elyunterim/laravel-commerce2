@@ -26,7 +26,7 @@ class CheckoutController extends Controller
 
             if($cart->getTotal() > 0){
 
-                $order = $order->create(['user_id' => Auth::user()->id, 'total' => $cart->getTotal()]);
+                $order = $order->create(['user_id' => Auth::user()->id, 'total' => $cart->getTotal(), 'status' => 0]);
 
                 foreach ($cart->all() as $k => $item) {
 
@@ -38,7 +38,8 @@ class CheckoutController extends Controller
                 }
 
                 $cart->clear();
-               // dd($order);
+
+                event(new CheckoutEvent(Auth::user(), $order));
 
                 return view('store.checkout', compact('order'));
 

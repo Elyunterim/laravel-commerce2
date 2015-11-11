@@ -13,10 +13,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'LaravelCommerce\Events\SomeEvent' => [
-            'LaravelCommerce\Listeners\EventListener',
+        'event.name' => ['EventListener',
+        'LaravelCommerce\Events\CheckoutEvent' => [
+        'LaravelCommerce\Listeners\Events\SendEmailCheckout',
         ],
-    ];
+    ]];
 
     /**
      * Register any other events for your application.

@@ -36,6 +36,7 @@
 					<li><a href="{{ url('/') }}">Home</a></li>
                     <li><a href="{{ url('/admin/products') }}">Categories</a></li>
                     <li><a href="{{ url('/admin/categories') }}">Products</a></li>
+                    <li><a href="{{ url('/admin/orders') }}">Orders</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

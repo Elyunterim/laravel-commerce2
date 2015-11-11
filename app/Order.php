@@ -22,4 +22,24 @@ class Order extends Model
     {
         return $this->belongsTo('LaravelCommerce\User');
     }
+
+
+    public function getStatus()
+    {
+
+        $status = [
+            0 => "Aguardando o pagamento",
+            1 => "Pagamento realizado",
+            2 => "Enviado",
+            3 => "Entregue",
+            4 => "Cancelado"
+        ];
+
+        return $status;
+    }
+
+    public function getTextStatusAttribute()
+    {
+        return $this->getStatus()[$this->status];
+    }
 }
