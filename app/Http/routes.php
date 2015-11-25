@@ -31,6 +31,9 @@
         Route::get('account/orders', ['as' => 'account.orders', 'uses' => 'AccountController@orders']);
     });
 
+    Route::get('transaction-return/{transaction_reference}',['as' => 'transaction.return', 'uses' => 'CheckoutController@transactionReturn']);
+    Route::get('transaction-notification', ['as' => 'transaction.notification', 'uses' => 'CheckoutController@transactionNotification']);
+
 
     Route::controllers([
         'auth' => 'Auth\AuthController',

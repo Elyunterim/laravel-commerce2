@@ -8,7 +8,8 @@
         "php": ">=5.5.9",
         "laravel/framework": "5.1.*",
         "illuminate/html": "*",
-        "bestmomo/scafold": "dev-master"
+        "bestmomo/scafold": "dev-master",
+        "wesleywillians/laravel-pagseguro": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -49,5 +50,6 @@
     },
     "config": {
         "preferred-install": "dist"
-    }
+    },
+    "minimum-stability": "dev"
 }

@@ -17,7 +17,7 @@ class AccountController extends Controller
 
     public function orders()
     {
-        $orders = Auth::user()->orders;
+        $orders = Auth::user()->orders()->orderBy('id','desc')->get();
 
         return view('store.orders', compact('orders'));
     }

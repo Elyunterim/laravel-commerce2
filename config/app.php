@@ -145,6 +145,7 @@ return [
         LaravelCommerce\Providers\AppServiceProvider::class,
         LaravelCommerce\Providers\EventServiceProvider::class,
         LaravelCommerce\Providers\RouteServiceProvider::class,
+        LaravelPagseguro\LaravelPagseguroServiceProvider::class,
 
     ],
 
