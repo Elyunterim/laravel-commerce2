@@ -1,4 +1,4 @@
-@extends('app')
+@extends('admin.app')
 @section('content')
     <div class="col-sm-12">
         <h3>Pedidos</h3>

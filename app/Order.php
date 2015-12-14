@@ -25,6 +25,10 @@ class Order extends Model
         return $this->belongsTo('LaravelCommerce\User');
     }
 
+    public function getTextStatusAttribute()
+    {
+        return $this->getStatus()[$this->status];
+    }
 
     public function getStatus()
     {
@@ -40,8 +44,4 @@ class Order extends Model
         return $status;
     }
 
-    public function getTextStatusAttribute()
-    {
-        return $this->getStatus()[$this->status];
-    }
 }

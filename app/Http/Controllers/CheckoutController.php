@@ -30,8 +30,6 @@ class CheckoutController extends Controller
 
             if($cart->getTotal() > 0){
 
-                $order = $order->create(['user_id' => Auth::user()->id, 'total' => $cart->getTotal(), 'status' => 0]);
-
                 $checkout = $checkoutService->createCheckoutBuilder();
 
                 $transactionReference = md5(Auth::user()->id ."_" . date("Ymd His") . "_" . $cart->getTotal());
@@ -60,7 +58,7 @@ class CheckoutController extends Controller
 
                 $checkout->setReference($transactionReference);
 
-                $checkout->setRedirectTo(route('transaction.return',['transaction_refence' => $transactionReference]));
+                $checkout->setRedirectTo(route('transaction.return',['transaction_reference' => $transactionReference]));
 
                 $response = $checkoutService->checkout($checkout->getCheckout());
 
@@ -74,11 +72,11 @@ class CheckoutController extends Controller
         public function transactionReturn(Order $order, Request $request)
         {
             //Consulta no PagSeguro o status da transação
-            $transactionStatus = $this->transactonStatus($request->transaction_id);
+            $transactionStatus = $this->transactionStatus($request->transaction_id);
 
             $order->where('payment_transaction_reference', $request->transaction_reference)->update([
 
-                'payment_transaction_code' => $request->transacton_id,
+                'payment_transaction_code' => $request->transaction_id,
                 'status' => $transactionStatus
             ]);
 
@@ -88,7 +86,7 @@ class CheckoutController extends Controller
 
         public function transactionNotification(Order $order, Request $request, Locator $service)
         {
-            $notificationType = $request->notificationType;
+            $notificationType = $request->notificacationType;
             $notificationCode = $request->notificationCode;
 
             if($notificationType == 'transaction'){
